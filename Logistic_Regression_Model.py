@@ -1,7 +1,7 @@
 # Script Name: Logistic_Regression
 # Author: Joshua (Jay) Wimhurst
 # Date created: 8/23/2022
-# Date Last Edited: 2/18/2023
+# Date Last Edited: 2/24/2023
 
 ############################### DESCRIPTION ###################################
 # This script applies a logistic regression model to the predictors and wind

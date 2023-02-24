@@ -123,11 +123,7 @@ def LogisticRegressionModel():
             else:
                 print("Invalid value; options are " + str(values))
     farmDensity(["25","45","65","85"], "Enter desired wind farm density (25, 45, 65, or 85 acres/MW):\n")
-    
-    # The selected wind farm density is assigned to a global variable
-    # for use when setting constraints and neighborhood effects
-    LogisticRegressionModel.density = farmDensity.density
-    
+
     # User input for wind power capacity as a percentile: 20, 40, 60, 80, or 100
     def farmCapacity(values,message):
         while True:
@@ -152,11 +148,7 @@ def LogisticRegressionModel():
         power = "90 MW"
     elif farmCapacity.capacity == "20":
         power = "30 MW"
-    
-    # The selected wind farm capacity is assigned to a global variable
-    # for use when setting constraints and neighborhood effects
-    LogisticRegressionModel.capacity = farmCapacity.capacity
-    
+
     # The user is asked for the predictor configurations for which they wish
     # to run the model, first the Full configuration
     def fullConfiguration(values,message):
@@ -227,11 +219,7 @@ def LogisticRegressionModel():
         table = "".join([directory, "/", studyRegion.region, "_Gridded_Surfaces/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, "_Merged.gdb\Attribute_Table"])
     else:        
         table = "".join([directory, "/", studyRegion.region, "_Gridded_Surfaces/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, "_Merged.gdb\Attribute_Table"])
-            
-    # The selected state is assigned to a global variable
-    # for use when setting constraints and neighborhood effects
-    LogisticRegressionModel.area = studyRegion.region
-        
+
     # The aggregated dataset are redefined to exclude the attribute table
     # rows with missing data
     array = TableToNumPyArray(table, "*", skip_nulls = True)

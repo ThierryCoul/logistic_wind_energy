@@ -1876,6 +1876,9 @@ def LogisticRegressionModel():
         # the grid cell probabilities
         arcpy.Delete_management(getisOrd)
         
+        # The attribute table is saved separately within the geodatabase
+        arcpy.TableToTable_conversion(finalGrid, outGDB, "Attribute_Table")
+        
         print("\nConstruction of the map using the " + configList[g] + " logistic regression model: Complete.")
     
     # Console output is written to a PDF

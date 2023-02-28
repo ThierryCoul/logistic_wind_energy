@@ -1662,6 +1662,7 @@ def LogisticRegressionModel():
             # already exist from a previous run, the geodatabase is emptied
             if os.path.exists("".join([directoryPlusSurfaces, "/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, "_", configList[g], ".gdb"])) is True:
                 arcpy.Delete_management("".join([directoryPlusSurfaces, "/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, "_", configList[g], ".gdb\Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, "_", configList[g], "_Map"]))
+                arcpy.Delete_management("".join([directoryPlusSurfaces, "/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, "_", configList[g], ".gdb\Attribute_Table"]))
             # An empty geodatabase is created to hold the new map.
             # NOTE: Make sure a folder called "Wind_Farm_Predictor_Maps" has been
             # created in the directory before executing the model.
@@ -1742,7 +1743,8 @@ def LogisticRegressionModel():
             # already exist from a previous run, the geodatabase is emptied
             if os.path.exists("".join([directoryPlusSurfaces, "/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_CONUS_", configList[g], ".gdb"])) is True:
                 arcpy.Delete_management("".join([directoryPlusSurfaces, "/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_CONUS_", configList[g], ".gdb\Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_CONUS_", configList[g], "_Map"]))
-    
+                arcpy.Delete_management("".join([directoryPlusSurfaces, "/Hexagon_Grid_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_CONUS_", configList[g], ".gdb\Attribute_Table"]))
+
             # An empty geodatabase is created to hold the new map.
             # NOTE: Make sure a folder called "Wind_Farm_Predictor_Maps" has been
             # created in the directory before executing the model.

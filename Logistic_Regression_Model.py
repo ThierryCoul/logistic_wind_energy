@@ -122,7 +122,7 @@ def LogisticRegressionModel():
                 break
             else:
                 print("Invalid value; options are " + str(values))
-    farmDensity(["25","45","65","85"], "Enter desired wind farm density (25, 45, 65, or 85 acres/MW):\n")
+    farmDensity(["25","45","65","85"], "\nEnter desired wind farm density (25, 45, 65, or 85 acres/MW):\n")
 
     # User input for wind power capacity as a percentile: 20, 40, 60, 80, or 100
     def farmCapacity(values,message):
@@ -133,7 +133,7 @@ def LogisticRegressionModel():
                 break
             else:
                 print("Invalid value; options are " + str(values))
-    farmCapacity(["20","40","60","80","100"], "Enter desired wind power capacity (20, 40, 60, 80, or 100 percentile):\n")
+    farmCapacity(["20","40","60","80","100"], "\nEnter desired wind power capacity (20, 40, 60, 80, or 100 percentile):\n")
     # NOTE: 20th percentile = 30MW, 40th percentile = 90MW, 60th percentile = 150 MW
     # 80th percentile = 201.5 MW, 20th percentile = 525 MW
     
@@ -159,7 +159,7 @@ def LogisticRegressionModel():
                 break
             else:
                 print("Invalid value; options are " + str(values))
-    fullConfiguration(["Y","N"], "".join(["Do you wish to use the Full predictor configuration? Y or N.\n"]))
+    fullConfiguration(["Y","N"], "".join(["\nDo you wish to use the Full predictor configuration? Y or N.\n"]))
     
     # Next the No_Wind configuration
     def noWindConfiguration(values,message):
@@ -170,7 +170,7 @@ def LogisticRegressionModel():
                 break
             else:
                 print("Invalid value; options are " + str(values))
-    noWindConfiguration(["Y","N"], "".join(["Do you wish to use the No_Wind predictor configuration? Y or N.\n"]))
+    noWindConfiguration(["Y","N"], "".join(["\nDo you wish to use the No_Wind predictor configuration? Y or N.\n"]))
     
     # Next the Wind_Only configuration
     def windOnlyConfiguration(values,message):
@@ -181,7 +181,7 @@ def LogisticRegressionModel():
                 break
             else:
                 print("Invalid value; options are " + str(values))
-    windOnlyConfiguration(["Y","N"], "".join(["Do you wish to use the Wind_Only predictor configuration? Y or N.\n"]))
+    windOnlyConfiguration(["Y","N"], "".join(["\nDo you wish to use the Wind_Only predictor configuration? Y or N.\n"]))
     
     # Finally the Reduced configuration
     def reducedConfiguration(values,message):
@@ -192,7 +192,7 @@ def LogisticRegressionModel():
                 break
             else:
                 print("Invalid value; options are " + str(values))
-    reducedConfiguration(["Y","N"], "".join(["Do you wish to use the Reduced predictor configuration? Y or N.\n"]))
+    reducedConfiguration(["Y","N"], "".join(["\nDo you wish to use the Reduced predictor configuration? Y or N.\n"]))
     
     configList = []
     

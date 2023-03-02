@@ -688,7 +688,7 @@ def LogisticRegressionModel():
         # separate list, which will be used for holding the coefficients should
         # the user wish to employ a cellular automaton in the model's second
         # script
-        predictorNames = dfxConfig.columns.tolist()
+        predictorCodeNames = dfxConfig.columns.tolist()
         
         ######################## MODEL CALIBRATION #########################
         
@@ -1084,7 +1084,7 @@ def LogisticRegressionModel():
             # separate list, which will be used for holding the coefficients should
             # the user wish to employ a cellular automaton in the model's second
             # script
-            predictorNames = dfxConfig.columns.tolist()
+            predictorCodeNames = dfxConfig.columns.tolist()
             
             # Numpy arrays are constructed for each of the predictor that will inform
             # the logistic regression model.

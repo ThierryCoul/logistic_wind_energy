@@ -1265,12 +1265,107 @@ def LogisticRegressionModel():
         
         # The median coefficients and the predictor names are added to a new
         # pandas dataframe, which will be needed for the cellular automaton
-        # in runs of the second script. The dataframe is saved as a .csv file
+        # script. Full names for each predictor are added to the dataframe
+        # for clarity when constructing cellular automaton scenarios.
+        predictors = []
+        for i in range(len(predictorCodenames)):
+            if predictorCodenames[i] == "Avg_25":
+                predictors.append("Percent Under 25")
+            if predictorCodenames[i] == "Avg_Elevat":
+                predictors.append("Average Elevation")
+            if predictorCodenames[i] == "Avg_Temp":
+                predictors.append("Average Temperature")
+            if predictorCodenames[i] == "Avg_Wind":
+                predictors.append("Average Wind Speed")
+            if predictorCodenames[i] == "Bat_Count":
+                predictors.append("Bat Species Count")
+            if predictorCodenames[i] == "Bird_Count":
+                predictors.append("Bird Species Count")
+            if predictorCodenames[i] == "Cost_15_19":
+                predictors.append("Electricity Cost")
+            if predictorCodenames[i] == "Critical":
+                predictors.append("Critical Habitats")
+            if predictorCodenames[i] == "Dem_Wins":
+                predictors.append("Presidential Elections")
+            if predictorCodenames[i] == "Dens_15_19":
+                predictors.append("Population Density")
+            if predictorCodenames[i] == "Farm_15_19":
+                predictors.append("Farmland Value")
+            if predictorCodenames[i] == "Farm_Year":
+                predictors.append("Wind Farm Age")
+            if predictorCodenames[i] == "Fem_15_19":
+                predictors.append("Percent Female")
+            if predictorCodenames[i] == "Foss_Lobbs":
+                predictors.append("Fossil Fuel Lobbies")
+            if predictorCodenames[i] == "Gree_Lobbs":
+                predictors.append("Green Lobbies")
+            if predictorCodenames[i] == "Hisp_15_19":
+                predictors.append("Percent Hispanic")
+            if predictorCodenames[i] == "Historical":
+                predictors.append("Historical Landmarks")
+            if predictorCodenames[i] == "In_Tax_Cre":
+                predictors.append("Investment Tax Credits")
+            if predictorCodenames[i] == "ISO_YN":
+                predictors.append("ISOs")
+            if predictorCodenames[i] == "Military":
+                predictors.append("Military Installations")
+            if predictorCodenames[i] == "Mining":
+                predictors.append("Mining Operations")
+            if predictorCodenames[i] == "Nat_Parks":
+                predictors.append("National Parks")
+            if predictorCodenames[i] == "Near_Air":
+                predictors.append("Nearest Airport")
+            if predictorCodenames[i] == "Near_Hosp":
+                predictors.append("Nearest_Hospital")
+            if predictorCodenames[i] == "Near_Plant":
+                predictors.append("Nearest Power Plant")
+            if predictorCodenames[i] == "Near_Roads":
+                predictors.append("Nearest Road")
+            if predictorCodenames[i] == "Near_Sch":
+                predictors.append("Nearest School")
+            if predictorCodenames[i] == "Near_Trans":
+                predictors.append("Nearest Transmission Line")
+            if predictorCodenames[i] == "Numb_Incen":
+                predictors.append("Financial Incentives")
+            if predictorCodenames[i] == "Numb_Pols":
+                predictors.append("Political Legislations")
+            if predictorCodenames[i] == "Plant_Year":
+                predictors.append("Power Plant Age")
+            if predictorCodenames[i] == "Prop_15_19":
+                predictors.append("Property Value")
+            if predictorCodenames[i] == "Prop_Rugg":
+                predictors.append("Rugged Land")
+            if predictorCodenames[i] == "Renew_Targ":
+                predictors.append("RPS Target")
+            if predictorCodenames[i] == "Rep_Wins":
+                predictors.append("Gubernatorial Elections")
+            if predictorCodenames[i] == "supp_2018":
+                predictors.append("RPS Support")
+            if predictorCodenames[i] == "Tax_Prop":
+                predictors.append("Property Tax Exemptions")
+            if predictorCodenames[i] == "Tax_Sale":
+                predictors.append("Sales Tax Abatements")
+            if predictorCodenames[i] == "Trib_Land":
+                predictors.append("Tribal Lands")
+            if predictorCodenames[i] == "Type_15_19":
+                predictors.append("Employment Type")
+            if predictorCodenames[i] == "Undev_Land":
+                predictors.append("Undevelopable Land")
+            if predictorCodenames[i] == "Unem_15_19":
+                predictors.append("Unemployment Rate")
+            if predictorCodenames[i] == "Whit_15_19":
+                predictors.append("Percent White")
+            if predictorCodenames[i] == "Wild_Refug":
+                predictors.append("Wildlife Refuges")
+
+        # The dataframe is created and saved as a .csv file
         dfCoefficients = pd.DataFrame()
-        dfCoefficients["Predictors"] = predictorNames
+        dfCoefficients["Predictors"] = predictors
+        dfCoefficients["Predictor_Codes"] = predictorCodenames
         dfCoefficients["Coefficients"] = coefMedTrained
-        dfCoefficients.to_csv("".join([directoryPlusCoefficients, "/Coeffs_", configList[g], "_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, ".csv"]))
-        
+        dfCoefficients = dfCoefficients.sort_values("Predictors", ignore_index = True)
+        dfCoefficients.to_csv("".join([r"E:\Dissertation_Resources\Coefficients/", studyRegion.region, "/Coeffs_", configList[g], "_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, ".csv"]))
+
         # Median coefficients are ranked according to their magnitude, to convey
         # strength of association with the binary grid cell state
         rankedCoefficients = len(coefMedTrained) - rankdata([abs(-1 * i) for i in coefMedTrained]) + 1

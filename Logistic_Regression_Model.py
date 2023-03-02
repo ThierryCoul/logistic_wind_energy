@@ -1303,6 +1303,8 @@ def LogisticRegressionModel():
                 predictors.append("Percent Hispanic")
             if predictorCodenames[i] == "Historical":
                 predictors.append("Historical Landmarks")
+            if predictorCodenames[i] == "Interconn":
+                predictors.append("Interconnection Policy")
             if predictorCodenames[i] == "In_Tax_Cre":
                 predictors.append("Investment Tax Credits")
             if predictorCodenames[i] == "ISO_YN":
@@ -1323,6 +1325,8 @@ def LogisticRegressionModel():
                 predictors.append("Nearest Road")
             if predictorCodenames[i] == "Near_Sch":
                 predictors.append("Nearest School")
+            if predictorCodenames[i] == "Net_Meter":
+                predictors.append("Net Metering Policy")
             if predictorCodenames[i] == "Near_Trans":
                 predictors.append("Nearest Transmission Line")
             if predictorCodenames[i] == "Numb_Incen":
@@ -1335,6 +1339,8 @@ def LogisticRegressionModel():
                 predictors.append("Property Value")
             if predictorCodenames[i] == "Prop_Rugg":
                 predictors.append("Rugged Land")
+            if predictorCodenames[i] == "Renew_Port":
+                predictors.append("RPS Policy")
             if predictorCodenames[i] == "Renew_Targ":
                 predictors.append("RPS Target")
             if predictorCodenames[i] == "Rep_Wins":

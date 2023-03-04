@@ -1263,6 +1263,10 @@ def LogisticRegressionModel():
         coefMedTrained = np.median(coefList, axis = 0).flatten().tolist()
         coef75 = np.percentile(coefList, 75, axis = 0).flatten().tolist()
         
+        # The median intercept is also computed
+        interceptTrained = np.median(interceptList, axis = 0).flatten().tolist()
+        medianIntercept = interceptTrained[0]
+        
         # The median coefficients and the predictor names are added to a new
         # pandas dataframe, which will be needed for the cellular automaton
         # script. Full names for each predictor are added to the dataframe
@@ -1371,7 +1375,13 @@ def LogisticRegressionModel():
         dfCoefficients["Coefficients"] = coefMedTrained
         dfCoefficients = dfCoefficients.sort_values("Predictors", ignore_index = True)
         dfCoefficients.to_csv("".join([r"E:\Dissertation_Resources\Coefficients/", studyRegion.region, "/Coeffs_", configList[g], "_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, ".csv"]))
-
+        
+        # The intercept obtained from fitting the model is also saved 
+        # to a .csv file
+        dfIntercept = pd.DataFrame()
+        dfIntercept["Intercept"] = [medianIntercept]
+        dfIntercept.to_csv("".join([r"E:\Dissertation_Resources\Intercepts/", studyRegion.region, "/Intercept_", configList[g], "_", farmDensity.density, "_acres_per_MW_", farmCapacity.capacity, "th_percentile_", studyRegion.region, ".csv"]))
+            
         # Median coefficients are ranked according to their magnitude, to convey
         # strength of association with the binary grid cell state
         rankedCoefficients = len(coefMedTrained) - rankdata([abs(-1 * i) for i in coefMedTrained]) + 1
@@ -1606,7 +1616,7 @@ def LogisticRegressionModel():
             
             # Probability that each grid cell should contain a wind farm is computed
             # and retained
-            prob = 1/(1+e**-(interceptList[0][0]+sum(coefMedTrained[0:len(dfxArray[0])]*dfxArray[cell][0:len(dfxArray[0])])))
+            prob = 1/(1+e**-(medianIntercept+sum(coefMedTrained[0:len(dfxArray[0])]*dfxArray[cell][0:len(dfxArray[0])])))
             probabilityAppend(prob)
             
             # Probability is converted into a binary outcome, based on the median

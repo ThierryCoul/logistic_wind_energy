@@ -1692,28 +1692,50 @@ def LogisticRegressionModel():
         if len(falsePositiveList) == 0:
             medFalsePos = "Median False Pos: N/A"
         else:
-            medFalsePos = "Median False Pos: " + str(median(falsePositiveList))[:5]
+            # If the median probability is close enough to zero (<1e-04), then 0 is entered
+            if median(falsePositiveList) < 1e-04:
+                medFalsePos = "Median False Pos: 0.000"
+            # Otherwise, the actual value is entered
+            else:
+                medFalsePos = "Median False Pos: " + str(median(falsePositiveList))[:5]
         # True Positive
         if len(truePositiveList) == 0:
             medTruePos = "Median True Pos: N/A"
         else:    
-            if mannWhitPositive[1] < 0.05:
-                medTruePos = "Median True Pos: " + str(median(truePositiveList))[:5] + "*"
+            if median(truePositiveList) < 1e-04:
+                if mannWhitPositive[1] < 0.05:
+                    medTrueNeg = "Median True Pos: 0.000*"
+                else:
+                    medTrueNeg = "Median True Pos: 0.000"
             else:
-                medTruePos = "Median True Pos: " + str(median(truePositiveList))[:5]
+                if mannWhitPositive[1] < 0.05:
+                    medTruePos = "Median True Pos: " + str(median(truePositiveList))[:5] + "*"
+                else:
+                    medTruePos = "Median True Pos: " + str(median(truePositiveList))[:5]
         # False Negative
         if len(falseNegativeList) == 0:
             medFalseNeg = "Median False Neg: N/A"
         else:
-            medFalseNeg = "Median False Neg: " + str(median(falseNegativeList))[:5]
+            if median(falseNegativeList) < 1e-04:
+                medFalseNeg = "Median False Neg: 0.000"
+            else:
+                medFalseNeg = "Median False Neg: " + str(median(falseNegativeList))[:5]
         # True Negative
         if len(trueNegativeList) == 0:
             medTrueNeg = "Median True Neg: N/A"
         else:
-            if mannWhitNegative[1] < 0.05:
-                medTrueNeg = "Median True Neg: " + str(median(trueNegativeList))[:5] + "*"
+            print(median(trueNegativeList))
+            if median(trueNegativeList) < 1e-04:
+                if mannWhitNegative[1] < 0.05:
+                    medTrueNeg = "Median True Neg: 0.000*"
+                else:
+                    print(median(trueNegativeList))
+                    medTrueNeg = "Median True Neg: 0.000"
             else:
-                medTrueNeg = "Median True Neg: " + str(median(trueNegativeList))[:5]
+                if mannWhitNegative[1] < 0.05:
+                    medTrueNeg = "Median True Neg: " + str(median(trueNegativeList))[:5] + "*"
+                else:
+                    medTrueNeg = "Median True Neg: " + str(median(trueNegativeList))[:5]
         
         # The text is added to the boxplot as a legend
         extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)

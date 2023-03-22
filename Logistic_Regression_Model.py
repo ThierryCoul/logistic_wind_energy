@@ -291,9 +291,15 @@ def LogisticRegressionModel():
                  "Foss_Lobbs","Gree_Lobbs","Type_15_19","Unem_15_19",
                  "Fem_15_19","Hisp_15_19","Avg_25","Whit_15_19","supp_2018"]]
             
-    # Rows containing null values are removed, otherwise the model will not run.
-    # Binary categorical variables are also converted into numbers, where N (no) is
-    # 0 and Y (yes) is 1.
+    # Some rows of the dataframe contain null values. Their indexes are saved,
+    # since they will need to be removed from the gridded surface (+1 since
+    # a pandas dataframe indexes from zero)
+    dropIndex = df[np.invert(df.index.isin(df.dropna().index))].index.tolist()
+    dropIndex = [x+1 for x in dropIndex]
+    
+    # Rows containing null values can now be removed, otherwise the model will
+    # not run. Binary categorical variables are also converted into numbers, 
+    # where N (no) is 0 and Y (yes) is 1.
     df = df.dropna().replace(to_replace = ["Other","N","Y"], value = [0,0,1])
     
     # Predictors that take the same value in every single grid cell should be 
@@ -1818,8 +1824,14 @@ def LogisticRegressionModel():
             # Empty probability and cell state fields are added to the centroid's
             # attribute table
             arcpy.AddField_management(cellCentroids, "Probab", "DOUBLE")
-            arcpy.AddField_management(cellCentroids,"Cell_State", "TEXT")
-            
+            arcpy.AddField_management(cellCentroids,"Cell_State", "TEXT")            
+                            
+            # Grid cells that contain null values are removed using a cursor
+            with UpdateCursor(cellCentroids,["TARGET_FID"]) as cursor:
+                for row in cursor:
+                    if row[0] in dropIndex:
+                        cursor.deleteRow()
+                        
             # The probability and cell state fields are filled
             fields = ["Probab","Cell_State"]
             iterator1 = iter(probabilityList)
@@ -1901,7 +1913,13 @@ def LogisticRegressionModel():
             # attribute table
             arcpy.AddField_management(cellCentroids, "Probab", "DOUBLE")
             arcpy.AddField_management(cellCentroids,"Cell_State", "TEXT")
-
+                    
+            # Grid cells that contain null values are removed using a cursor
+            with UpdateCursor(cellCentroids,["TARGET_FID"]) as cursor:
+                for row in cursor:
+                    if row[0] in dropIndex:
+                        cursor.deleteRow()
+                        
             # The probability and cell state fields are filled
             fields = ["Probab","Cell_State"]
             iterator1 = iter(probabilityList)

@@ -39,7 +39,7 @@ filterwarnings("ignore")
 # IMPORTANT - set up a file directory to place the Console Output, 
 # generated figures, and constructed WiFSS surfaces BEFORE attempting to
 # run this model
-directory = r"D:\Dissertation_Resources\Model_Testing"
+directory = # Specify directory here
 
 # IMPORTANT - make sure to also create a folder for the WiFSS surfaces
 # created from applying the trained and tested model to all grid cells
